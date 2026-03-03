@@ -1,0 +1,30 @@
+{
+  "name": "smart-task-manager-api",
+  "version": "1.0.0",
+  "description": "Documentation",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Uwineza99/smart-task-manager-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Uwineza99/smart-task-manager-api/issues"
+  },
+  "homepage": "https://github.com/Uwineza99/smart-task-manager-api#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "pg": "^8.18.0",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
