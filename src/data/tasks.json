@@ -1,0 +1,29 @@
+[
+  {
+    "id": "0fcf854e-dcd5-4578-aa45-672a114a94f7",
+    "title": "Improving the project",
+    "description": "Starting tasks flow project",
+    "status": "todo",
+    "priority": "high",
+    "assignedUserId": "6cd94698-27ff-44cf-b790-5111312ed5bf",
+    "createdAt": "2026-02-05T13:42:30.438Z"
+  },
+  {
+    "id": "ca6d55c3-6e41-4a49-857d-957f2d37f7b9",
+    "title": "Starting the project",
+    "description": "Starting tasks flow project",
+    "status": "in_progress",
+    "priority": "high",
+    "assignedUserId": "6cd94698-27ff-44cf-b790-5111312ed5bf",
+    "createdAt": "2026-02-05T13:42:46.261Z"
+  },
+  {
+    "id": "1c2b97e8-62fa-4fa1-b885-6cf943fa26a2",
+    "title": "Adding validations",
+    "description": "Making some conditions",
+    "status": "done",
+    "priority": "medium",
+    "assignedUserId": "6cd94698-27ff-44cf-b790-5111312ed5bf",
+    "createdAt": "2026-02-05T13:44:03.904Z"
+  }
+]

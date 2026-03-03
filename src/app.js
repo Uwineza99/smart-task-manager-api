@@ -4,6 +4,9 @@ const express = require('express');
 // Import user routes
 const userRoutes = require('./routes/user.routes');
 
+// Import task routes
+const taskRoutes = require('./routes/task.routes');
+
 // Starting the app
 const app = express();
 
@@ -12,6 +15,9 @@ app.use(express.json());
 
 // Creating users route
 app.use('/users', userRoutes);
+
+// Creating tasks route
+app.use('/tasks', taskRoutes);
 
 // Health endpoints
 app.use('/health', (req, res) => {
