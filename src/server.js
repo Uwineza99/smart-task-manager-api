@@ -1,6 +1,9 @@
 // Loading environment var from .env
 require('dotenv').config();
 
+// Run tables creation when server starts
+require('./config/initDb.js');
+
 // Import Express app
 const app = require('./app');
 

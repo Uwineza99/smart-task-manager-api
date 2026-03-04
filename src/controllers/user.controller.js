@@ -1,47 +1,69 @@
-// Import users array
-const users = require("../data/users");
-//Import uuid to generate unique user id
-const { v4: uuid4 } = require("uuid");
+// Import repository
+const userRepo = require("../repositories/user.repo.js");
+
 // Create a new user
-const createUser = (req, res) => {
-  //Get the name and email from the request body
-  const { name, email } = req.body;
+const createUser = async (req, res) => {
+  const { name, email, role } = req.body;
 
-  // Check if your email and name are missing
-  if (!name || !email) {
-    return res.status(400).json({ message: "Name and email required" });
+  // Validate required fields
+  if (!name || !email || !role) {
+    return res.status(400).json({
+      message: "Name, email and role are required",
+    });
   }
 
-  //Check if the name is a string
+  // Validate name type
   if (typeof name !== "string") {
-    return res.status(400).json({ message: "name must be string" });
+    return res.status(400).json({
+      message: "Name must be a string",
+    });
   }
-  // Check if the email is valid
+
+  // Validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return res.status(400).json({ message: "Invalid email format" });
+    return res.status(400).json({
+      message: "Invalid email format",
+    });
   }
 
-  // Check if email already exists
-  const emailExists = users.find((user) => user.email === email);
-  if (emailExists) {
-    return res.status(400).json({ message: "Email already in use" });
+  try {
+    // Check if email already exists (FROM DATABASE)
+    const existingUser = await userRepo.findUserByEmail(email);
+    if (existingUser) {
+      return res.status(409).json({
+        message: "Email already in use",
+      });
+    }
+    
+
+    // Create user in database
+    const createdUser = await userRepo.createUser({
+      name,
+      email,
+      role,
+    });
+
+    res.status(201).json(createdUser);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-  // User object
-  const newUser = {
-    id: uuid4(),
-    name,
-    email,
-    createdAt: new Date(),
-  };
-  users.push(newUser);
-  res.status(201).json(newUser);
 };
-// Listing all users
-const listUsers = (req, res) => {
-  res.json(users);
+
+
+// List all users
+const listUsers = async (req, res) => {
+  try {
+    const users = await userRepo.getAllUsers();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
-// Check if the server is running
+
+
+// Health check
 const healthCheck = (req, res) => {
   res.json({
     status: "ok",
@@ -49,5 +71,10 @@ const healthCheck = (req, res) => {
   });
 };
 
-// Export functions so routes can use them
-module.exports = { createUser, listUsers, healthCheck };
+
+// Export
+module.exports = {
+  createUser,
+  listUsers,
+  healthCheck,
+};

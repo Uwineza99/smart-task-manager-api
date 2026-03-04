@@ -6,6 +6,7 @@ class UnsafeQueryError extends Error {
 
     // helps identify error type
     this.name = "UnsafeQueryError";
+    this.statusCode = 400;
   }
 }
 

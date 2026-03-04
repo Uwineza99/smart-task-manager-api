@@ -1,64 +1,53 @@
 // Import database connection
-const pool = require('../config/database');
+const db = require('../connection');
 
 // Create task
-exports.createTask = async (taskData) => {
-  const {title, description, priority, assignedUserId} = taskData;
-  const result = await pool.query(
-    `INSERT INTO tasks (title, description, priority, assigned_user_id)
-     VALUES ($1, $2, $3, $4)
-     RETURNING *`,
-    [title, description, priority, assignedUserId]
-  );
-
-  return result.rows[0]; // return new task
+exports.createTask = async (data) => {
+  return db.table("tasks").create(data);
 };
-
 // Get all tasks
 exports.getAllTasks = async () => {
-  const result = await pool.query('SELECT * FROM tasks');
-  return result.rows;
+  return db.table("tasks").get();
 };
 
-// Find task by ID
+// Find task by user ID
 exports.findTaskById = async (id) => {
-  const result = await pool.query(
-    'SELECT * FROM tasks WHERE id = $1',
-    [id]
-  );
 
-  return result.rows[0];
+  // findById already applies WHERE id = $1 and LIMIT 1
+  return db
+    .table("tasks")
+    .findById(id);
 };
 
 // Find task by title (for duplicate check)
 exports.findTaskByTitle = async (title) => {
-  const result = await pool.query(
-    'SELECT * FROM tasks WHERE title = $1',
-    [title]
-  );
 
-  return result.rows[0];
+  // WHERE title = $1 LIMIT 1
+  return db
+    .table("tasks")
+    .findOne({ title })
+    // .findOne();
 };
 
 // Find user by ID (used before assigning task)
 exports.findUserById = async (id) => {
-  const result = await pool.query(
-    'SELECT * FROM users WHERE id = $1',
-    [id]
-  );
 
-  return result.rows[0];
+  // Query users table
+  return db
+    .table("users")
+    .findById(id);
 };
-
 // Update task status
 exports.updateTaskStatus = async (id, status) => {
-  const result = await pool.query(
-    `UPDATE tasks 
-     SET status = $1 
-     WHERE id = $2 
-     RETURNING *`,
-    [status, id]
-  );
 
-  return result.rows[0];
+  // Update status column where id matches
+  await db
+    .table("tasks")
+    .where({ id })
+    .update({ status });
+
+  // Return updated task
+  return db
+    .table("tasks")
+    .findById(id);
 };

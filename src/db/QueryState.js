@@ -12,7 +12,7 @@ class QueryState {
 
     // where conditions list
     this.where = [];
-     // limit number
+    // limit number
     this.limit = null;
 
     // offset number
@@ -20,15 +20,18 @@ class QueryState {
 
     // ordering configuration
     this.order = null;
-    
+
     //ordering depending on the field you want
     this.orderByFields = null;
-    
+
     // data used for create/update
-    this.data = null;
+    this.data = {};
 
     // soft delete flag
     this.softDelete = false;
+    
+    // Holds parameterized values
+    this.params = [];
   }
 
   // Reset query after execution
@@ -46,8 +49,9 @@ class QueryState {
     this.offset = null;
     this.order = null;
     this.orderByFields = null;
-    this.data = null;
+    this.data = {};
     this.softDelete = false;
+    this.params = [];
   }
 }
 
