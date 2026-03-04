@@ -25,5 +25,14 @@
     "priority": "medium",
     "assignedUserId": "6cd94698-27ff-44cf-b790-5111312ed5bf",
     "createdAt": "2026-02-05T13:44:03.904Z"
+  },
+  {
+    "id": "332cb56d-4ede-440a-86d9-db224ab3a797",
+    "title": "Adding diagrams",
+    "description": "Starting tasks flow project",
+    "status": "in_progress",
+    "priority": "high",
+    "assignedUserId": "1d5fe5cf-1af1-42d3-a327-e71c1ade82e0",
+    "createdAt": "2026-02-25T07:57:38.457Z"
   }
 ]
